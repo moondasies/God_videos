@@ -1,0 +1,25 @@
+# --- private inputs: NEVER commit -------------------------------------------
+# photos, character sheet, voice samples, consent files, cloned profiles
+private/
+*.env
+.env
+# --- environments, models, caches -------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# TTS weights, rhubarb binary (download with scripts/setup_models.py)
+models/
+# per-line audio + per-shot video segment caches
+cache/
+# --- generated outputs: keep finals, QA, subtitles; drop intermediates -----
+outputs/**/*.wav
+outputs/**/segments.txt
+outputs/**/video_only.mp4
+outputs/**/*_preview.mp4
+outputs/**/qa_report_preview.*
+outputs/**/timeline.json
+storyboards/**/timeline.json
+*.tmp.mp4
+.DS_Store

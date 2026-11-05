@@ -1,0 +1,48 @@
+# Voice profiles. Episodes pick a profile per speaker under `voices:`.
+# PREVIEW profiles use offline Piper Hindi voices. Their weights are licensed
+# CC BY-NC-SA 4.0 -> NOT for monetised/commercial publishing. Replace with your
+# own cloned voice (girl) and an authorised Mahadev voice before publishing.
+defaults:
+  girl: girl_preview
+  mahadev: mahadev_preview
+
+profiles:
+  girl_preview:
+    backend: piper
+    model: hi_IN-priyamvada-medium
+    length_scale: 1.0
+    noise_scale: 0.6
+    noise_w: 0.8
+    post: [deess]
+    target_rms_db: -19
+    preview: true
+    license: "Piper hi_IN-priyamvada (CC BY-NC-SA 4.0) - preview only"
+
+  mahadev_preview:
+    backend: piper
+    model: hi_IN-pratham-medium
+    length_scale: 1.16          # measured, unhurried pace
+    noise_scale: 0.55
+    noise_w: 0.7
+    pitch_semitones: -0.6       # a touch deeper, still natural
+    post: [warmth, room]        # subtle warmth + very light room; no theatrical echo
+    target_rms_db: -18.5
+    preview: true
+    license: "Piper hi_IN-pratham (CC BY-NC-SA 4.0) - preview only"
+
+  # --- production profiles (created by `python -m voice.clone_voice ...`) ---------
+  girl_clone:
+    backend: chatterbox        # MIT-licensed multilingual cloning (recommended)
+    profile_file: private/voices/girl/profile.yaml
+    post: [deess]
+    target_rms_db: -19
+  mahadev_clone:
+    backend: chatterbox
+    profile_file: private/voices/mahadev/profile.yaml   # needs a consent.yaml from the voice owner
+    post: [warmth, room]
+    target_rms_db: -18.5
+  mahadev_elevenlabs:
+    backend: elevenlabs         # PAID – only after explicit approval
+    voice_id: "<your-licensed-voice-id>"
+    model_id: eleven_multilingual_v2
+    post: [warmth]

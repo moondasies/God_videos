@@ -1,0 +1,18 @@
+[project]
+name = "mahadev-and-me"
+version = "0.1.0"
+description = "Automated pipeline for 'Mahadev & Me' animated spiritual Hinglish reels (9:16, 30-40 s)."
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26", "scipy>=1.11", "PyYAML>=6.0", "soundfile>=0.12",
+  "skia-python>=87.6", "piper-tts>=1.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+clone = ["chatterbox-tts"]           # MIT-licensed multilingual voice cloning (GPU recommended)
+xtts = ["coqui-tts"]                 # maintained Coqui fork; XTTS-v2 weights are non-commercial
+llm = ["anthropic"]                  # optional paid script drafting
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

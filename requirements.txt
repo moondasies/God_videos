@@ -1,0 +1,9 @@
+# Core (CPU-only, works on low-spec laptops)
+numpy>=1.26
+scipy>=1.11
+PyYAML>=6.0
+soundfile>=0.12
+skia-python>=87.6
+piper-tts>=1.2          # offline Hindi preview voices (ONNX, CPU)
+# Dev
+pytest>=8
