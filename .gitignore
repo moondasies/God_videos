@@ -23,3 +23,5 @@ outputs/**/timeline.json
 storyboards/**/timeline.json
 *.tmp.mp4
 .DS_Store
+# shareable bundles
+outputs/share/
