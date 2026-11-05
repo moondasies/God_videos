@@ -17,7 +17,7 @@ final MP4 and QA report.
 |---|---|---|---|---|---|
 | EP1 "Main kabhi kaafi kyun nahi hoti?" (comparison, self-worth) | `outputs/episode_001/episode_001.mp4` | 39.05 s | 1080×1920 @30 fps, H.264 High + AAC 48 kHz | **PREVIEW** (Piper Hindi) | passed (2 voice warnings) |
 | EP2 "Log humein hurt kyun karte hain?" (betrayal, boundaries) | `outputs/episode_002/episode_002.mp4` | 39.93 s | same | **PREVIEW** | passed (2 voice warnings) |
-| EP3 "Dimaag chup kyun nahi hota?" (auto-generated from the topic, unedited) | `outputs/episode_003/episode_003.mp4` | see `qa_report.md` | same | **PREVIEW** | see report |
+| EP3 "Dimaag chup kyun nahi hota?" (auto-generated from the topic, unedited) | `outputs/episode_003/episode_003.mp4` | 32.23 s | same | **PREVIEW** | passed (2 voice warnings) |
 
 Each episode folder contains `qa_report.md`, Hinglish and English `.srt` files, `episode.yaml` and
 `script.md`. Storyboards are in `storyboards/<ep>/`.

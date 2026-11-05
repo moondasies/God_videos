@@ -1,0 +1,167 @@
+{
+ "episode": "episode_001",
+ "preset": "final",
+ "passed": true,
+ "checks": [
+  {
+   "area": "technical",
+   "check": "resolution",
+   "status": "PASS",
+   "detail": "1080x1920 (expected 1080x1920, 9:16)"
+  },
+  {
+   "area": "technical",
+   "check": "frame rate",
+   "status": "PASS",
+   "detail": "30.00 fps"
+  },
+  {
+   "area": "technical",
+   "check": "video codec",
+   "status": "PASS",
+   "detail": "h264 yuv420p High"
+  },
+  {
+   "area": "technical",
+   "check": "audio codec",
+   "status": "PASS",
+   "detail": "aac 48000 Hz 2 ch"
+  },
+  {
+   "area": "technical",
+   "check": "decode integrity",
+   "status": "PASS",
+   "detail": "decoded without errors"
+  },
+  {
+   "area": "timing",
+   "check": "duration 30-40 s",
+   "status": "PASS",
+   "detail": "39.05s"
+  },
+  {
+   "area": "animation",
+   "check": "no missing frames",
+   "status": "PASS",
+   "detail": "1171 frames (expected ~1172)"
+  },
+  {
+   "area": "animation",
+   "check": "no frozen stretches >1.5 s",
+   "status": "PASS",
+   "detail": "min motion per 1.5 s window ok; mean frame delta 2.703"
+  },
+  {
+   "area": "animation",
+   "check": "every shot has visible movement",
+   "status": "PASS",
+   "detail": "s01:5.591, s02:0.877, s03:4.559, s04:0.881, s05:1.31, s06:1.316, s07:0.977, s08:1.082, s09:2.675"
+  },
+  {
+   "area": "animation",
+   "check": "no unintended black frames",
+   "status": "PASS",
+   "detail": "none before the final fade"
+  },
+  {
+   "area": "audio",
+   "check": "integrated loudness",
+   "status": "PASS",
+   "detail": "-14.0 LUFS (target -14)"
+  },
+  {
+   "area": "audio",
+   "check": "true peak / no clipping",
+   "status": "PASS",
+   "detail": "-1.5 dBFS"
+  },
+  {
+   "area": "audio",
+   "check": "dialogue audible over music",
+   "status": "PASS",
+   "detail": "speech -20.3 dB vs music -36.9 dB under speech (gap 16.6 dB, need >= 10)"
+  },
+  {
+   "area": "voice",
+   "check": "girl: correct profile",
+   "status": "PASS",
+   "detail": "girl_preview via piper"
+  },
+  {
+   "area": "voice",
+   "check": "girl: production voice",
+   "status": "WARN",
+   "detail": "PREVIEW voice – Piper hi_IN-priyamvada (CC BY-NC-SA 4.0) - preview only"
+  },
+  {
+   "area": "voice",
+   "check": "mahadev: correct profile",
+   "status": "PASS",
+   "detail": "mahadev_preview via piper"
+  },
+  {
+   "area": "voice",
+   "check": "mahadev: production voice",
+   "status": "WARN",
+   "detail": "PREVIEW voice – Piper hi_IN-pratham (CC BY-NC-SA 4.0) - preview only"
+  },
+  {
+   "area": "voice",
+   "check": "no clipped words / unexpected silence",
+   "status": "PASS",
+   "detail": "all lines clean"
+  },
+  {
+   "area": "lip-sync",
+   "check": "mouth opening tracks speech energy",
+   "status": "PASS",
+   "detail": "mean correlation 0.75 over 7 on-screen lines (method: hybrid(energy+rhubarb))"
+  },
+  {
+   "area": "subtitles",
+   "check": "timing, punctuation & width",
+   "status": "PASS",
+   "detail": "all caption chunks fit, readable >= 0.35 s each"
+  },
+  {
+   "area": "subtitles",
+   "check": "safe-zone placement",
+   "status": "PASS",
+   "detail": "caption band y=1370-1560 px of 1920 (keeps clear of top 13% / bottom 17% UI)"
+  },
+  {
+   "area": "spiritual",
+   "check": "no fabricated scriptural attribution",
+   "status": "PASS",
+   "detail": "all lines marked original fiction / cited"
+  },
+  {
+   "area": "spiritual",
+   "check": "sensitive-topic safeguard",
+   "status": "PASS",
+   "detail": "ok"
+  },
+  {
+   "area": "character",
+   "check": "girl: locked identity spec",
+   "status": "PASS",
+   "detail": "hash 121cebf95063f6bc"
+  },
+  {
+   "area": "character",
+   "check": "mahadev: locked identity spec",
+   "status": "PASS",
+   "detail": "hash 1aa106f37ad244b3"
+  },
+  {
+   "area": "character",
+   "check": "wardrobe continuity",
+   "status": "PASS",
+   "detail": "girl outfit(s) in episode: ['home_tshirt']"
+  }
+ ],
+ "voice_status": {
+  "girl": "PREVIEW (temporary)",
+  "mahadev": "PREVIEW (temporary)"
+ }
+}
