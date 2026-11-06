@@ -1,5 +1,8 @@
 # *Mahadev & Me*: channel identity and style guide
 
+> **Visual style update (pilot v2):** the series now uses the painted art from the approved character sheet (anime/webtoon look, defocused backgrounds, glow and particles). The flat vector rig mentioned in older notes was retired.
+
+
 ## Premise
 A modern young Indian woman talks to Mahadev about problems young people face today. Through
 simple conversation, questions, gentle humour and compassion, he helps her see one thing
@@ -27,7 +30,7 @@ mentorship, not a series of sermons.
 pushback → 28–36 s realisation → 36–40 s moral card. Total **30–40 s**, enforced automatically.
 
 ## Visual style
-* Polished, flat-shaded 2D cartoon with soft gradients. Procedural vector rig with 2.5D head turns.
+* Painted anime/webtoon illustration taken directly from the approved character sheet, upscaled and cut out, with subtle 2.5D life motion.
 * Palettes: **night** (indigo #1d2340, warm fairy-light amber #ffcf73); **sunset** (#33265a →
   #d0607a → #ffcf7a); **dream** (lavender #8a6bb8, blush #f5b9c8); Mahadev blue #8091c4 with gold
   #e0ab3c.

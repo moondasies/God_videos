@@ -1,9 +1,15 @@
-# Core (CPU-only, works on low-spec laptops)
+# Anime/webtoon pilot pipeline – free, offline, CPU-only
 numpy>=1.26
 scipy>=1.11
 PyYAML>=6.0
 soundfile>=0.12
-skia-python>=87.6
-piper-tts>=1.2          # offline Hindi preview voices (ONNX, CPU)
-# Dev
+skia-python>=87.6            # captions, title cards, background plates
+opencv-python-headless>=4.9  # warping / compositing
+onnxruntime>=1.17            # MDX-Net vocal isolation, ISNet-anime cut-outs
+rembg>=2.0.50                # ISNet-anime wrapper (uses the local model, no download)
+torch>=2.2                   # Real-ESRGAN anime upscaler (CPU is fine)
+Pillow>=10
+# Optional
+sherpa-onnx>=1.10            # Whisper (offline) – transcribe recordings to write captions
+piper-tts>=1.2               # legacy offline TTS (voice.generate_dialogue --say)
 pytest>=8

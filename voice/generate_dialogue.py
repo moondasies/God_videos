@@ -1,6 +1,5 @@
 """Generate per-line dialogue audio (cached), mouth cues, and the synchronised dialogue track.
 
-    python -m voice.generate_dialogue episodes/episode_001          # synthesise + report
     python -m voice.generate_dialogue --say mahadev "शांत हो जाओ।"   # quick test line
 
 Each line is synthesised from its Devanagari `tts` text (Hindi TTS frontends need Devanagari;
@@ -112,13 +111,9 @@ def main(argv=None):
         sf.write(a.out, x, dsp.SR)
         print(json.dumps({k: v for k, v in m.items() if k != "cues"}, indent=1, ensure_ascii=False), "->", a.out)
         return 0
-    from pipeline.episode import load_episode
-    ep = load_episode(a.episode)
-    for shot in ep["shots"]:
-        for ln in shot.get("lines", []):
-            prof = resolve_profile(cfg, ep["voices"][ln["speaker"]])
-            m = synth_line(ln["tts"], prof, ln.get("emotion", "neutral"))
-            print(f"{ln['speaker']:8s} {m['duration']:5.2f}s {'(cached)' if m['cached'] else ''} {ln['roman']}")
+    if a.episode:
+        raise SystemExit("Episode-wide TTS belonged to the retired puppet pipeline. Use --say for single lines, "
+                         "or supply recorded audio (docs/inputs.md).")
     return 0
 
 

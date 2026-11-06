@@ -1,5 +1,8 @@
 # Voice setup
 
+> **Status (pilot v2):** the pilot uses your own recordings directly (`docs/inputs.md`). The Piper preview voices below are kept only as an optional, legacy tool.
+
+
 Two recurring voices: **the girl** (your own voice) and **Mahadev** (a separately licensed or
 authorised voice). Until those are approved, episodes use **preview voices**, which QA flags as
 `WARN – PREVIEW voice`.

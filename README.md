@@ -1,82 +1,62 @@
-# Mahadev & Me — AI-assisted animated spiritual reels
+# Mahadev & Me — anime/webtoon-style spiritual reels (free, offline)
 
-An offline, CPU-only pipeline that turns a topic into a finished **9:16, 1080×1920, 30–40 s
-H.264/AAC** animated reel in **Hinglish**. A modern young woman talks with **Mahadev**, who helps
-her see one modern-life problem differently.
+The pipeline builds a 9:16 reel from **your approved character sheet** (the painted artwork is
+used directly, not redrawn) and **your own voice recordings**. Everything runs on CPU with free,
+open models. There are no paid APIs and no API keys.
 
 ```bash
-python -m pipeline make "Overthinking about my future"
+python -m anime.pilot             # 1080x1920 @30fps final  (~2 min on 4 CPU cores)
+python -m anime.pilot --preview   # 540x960 quick check     (~1 min)
 ```
 
-That one command writes the script, storyboard, voices, lip-synced animation, captions, music,
-final MP4 and QA report.
+Output: `outputs/pilot_v2/pilot_v2.mp4` (+ `pilot_v2_hinglish.srt`, `plan.json`).
 
-## Sample reels
+## Pilot v2 (current)
 
-| Reel | File | Duration | Resolution | Voices | QA |
-|---|---|---|---|---|---|
-| EP1 "Main kabhi kaafi kyun nahi hoti?" (comparison, self-worth) | `outputs/episode_001/episode_001.mp4` | 39.05 s | 1080×1920 @30 fps, H.264 High + AAC 48 kHz | **PREVIEW** (Piper Hindi) | passed (2 voice warnings) |
-| EP2 "Log humein hurt kyun karte hain?" (betrayal, boundaries) | `outputs/episode_002/episode_002.mp4` | 39.93 s | same | **PREVIEW** | passed (2 voice warnings) |
-| EP3 "Dimaag chup kyun nahi hota?" (auto-generated from the topic, unedited) | `outputs/episode_003/episode_003.mp4` | 32.23 s | same | **PREVIEW** | passed (2 voice warnings) |
+| | |
+|---|---|
+| File | `outputs/pilot_v2/pilot_v2.mp4` |
+| Duration | 32.17 s |
+| Format | 1080×1920, 30 fps, H.264 High + AAC 48 kHz, −14.4 LUFS, peak −1.5 dBFS |
+| Voices | your two recordings: the girl ("Mera naam Srijita hai, main 22 saal ki hoon…") and Mahadev ("Jo bhi meri pooja karega, use pariksha to deni hogi") |
+| Girl's outfit | changed to a **dusty-rose blazer** (recolour of the sheet's beige plaid blazer; face, hair, jewellery untouched) |
+| Shots | 12: establishing → girl medium → moon cutaway → girl close-up → dreamy cutaway → girl → Mahadev's glow entrance → Mahadev medium → close-up → girl's surprised reaction → two-shot → quote end card |
 
-Each episode folder contains `qa_report.md`, Hinglish and English `.srt` files, `episode.yaml` and
-`script.md`. Storyboards are in `storyboards/<ep>/`.
+## How it works (all free)
 
-**These are preview-quality productions, not final channel content:**
-* The voices are temporary Piper Hindi voices licensed CC BY-NC-SA 4.0, so they are **not usable on
-  a monetised channel**. Replace them with your cloned voice and an authorised Mahadev voice
-  (`docs/voice_setup.md`).
-* The characters are a **stylised vector interpretation** of the illustrated sheet. They are not the
-  painted look, and you should approve or adjust the face (`docs/character_bible.md`).
-* The rig is upper-body only (no legs or walking). Three-quarter views are used rather than true
-  side profiles.
+| Stage | Tool | Licence |
+|---|---|---|
+| Upscale sheet art ×4 | Real-ESRGAN x4plus **anime** 6B (`anime/upscale.py`) | BSD-3 |
+| Cut characters out | ISNet-**anime** via rembg (`anime/assets.py`) | Apache-2.0 / MIT |
+| Outfit change | colour recolour of the jacket mask, preserving shading and weave | – |
+| Remove music/noise from voice | UVR MDX-Net **Kim_Vocal_2** (`anime/separate.py`) + ffmpeg denoise | MIT (UVR models) |
+| Life motion | `anime/puppet.py`: smooth displacement-field warp (head sway, nods, breathing, hair sway), painted blinks, anime mouth shapes driven by the voice's loudness each frame | – |
+| Cinematics | `anime/pilot.py`: defocused background plates, glow, floating particles, vignette, push-ins, whip-pan "swoosh" cuts, glow-flash entrance | – |
+| Captions / titles | skia + Poppins / Kalam / Yatra One (SIL OFL) | OFL |
+| Music | procedural, original (`audio/music.py`), ducked under speech | – |
 
-## Setup
+Setup:
 
 ```bash
-git clone https://github.com/moondasies/God_videos && cd God_videos
-python3 -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python scripts/setup_models.py                           # Hindi Piper voices + Rhubarb lip-sync (about 200 MB)
-python -m pytest -q                                      # 24 tests
-python -m pipeline render episode_001 --preview          # about 30 s on a 4-core laptop
+python scripts/setup_models.py             # ~260 MB of free models from GitHub releases
+python -m pytest -q
 ```
 
-System requirement: **ffmpeg** with `libx264` and `rubberband` (Ubuntu: `apt install ffmpeg`;
-macOS: `brew install ffmpeg`; Windows: a full ffmpeg build on PATH). On minimal Linux images,
-skia also needs `libegl1` (`apt install libegl1`).
+Put your inputs in `private/` as described in **docs/inputs.md**.
 
-## Repository layout
+## Honest limitations
+* **Mouth movement is painted over the still artwork**, so it works best on the two large portraits.
+  The small expression heads, full-body figures and cutaways don't lip-sync; the edit only uses
+  them for reactions, voice-over and wide shots.
+* **Motion is subtle 2.5D** (warping a single painting), like the reference reel. It is not
+  frame-by-frame animation, and there are no new poses or angles beyond what the sheet contains.
+* **The outfit change is a recolour.** The garment's cut stays the sheet's blazer; a completely
+  different garment needs new art on the sheet.
+* **Backgrounds** are original procedural plates shown out of focus. Painted backgrounds can be
+  dropped in later.
+* **Mahadev's recording** contained a music bed, which suggests it comes from a show or video. Only
+  publish it if you have the rights; otherwise record a consenting voice.
 
-```
-animation/   rig.py (2.5D face, visemes, IK, hands) · characters.py (locked identities + wardrobe)
-             backgrounds.py (12 procedural locations) · props.py (phone inserts, flowers) · scene.py (renderer, captions)
-audio/       dsp.py · music.py (procedural score / ambience / SFX) · mix.py (ducking mix)
-voice/       backends.py (piper | chatterbox | xtts | elevenlabs) · validate_sample.py · clone_voice.py
-             generate_dialogue.py · lipsync.py · voice_config.example.yaml
-pipeline/    __main__.py (CLI) · episode.py (YAML + timeline) · render.py · qa.py · storyboard.py · scriptgen.py · assets.py
-episodes/    episode_00N/episode.yaml + script.md
-assets/      characters/{girl,mahadev}/*.png (reference sheets, transparent poses) · backgrounds/ · fonts/ (SIL OFL)
-research/    channel reports (access-limited, see below) · 50_original_reel_ideas.csv · analyze_reels.py
-docs/        channel_identity_style_guide.md · character_bible.md · voice_setup.md · pipeline.md
-config/      voices.yaml · identity.lock.json
-private/     (git-ignored) your photo, character sheet, voice samples, consent files, cloned profiles
-models/ cache/  (git-ignored) downloaded weights, per-line audio and per-shot video caches
-```
-
-## Research status
-Instagram, YouTube and the article pages were **blocked by the network policy of the
-environment this was built in**, so **no reels from either inspiration channel were watched**.
-`research/channel_*_analysis.md` records exactly what was attempted. For `@godspov_`, it also
-records what search snippets say ("Gods POV": an animated, conversational Krishna; YouTube
-`@Gods_pov`). `research/analyze_reels.py` measures reels you save locally, so the analysis can be
-completed from real data.
-
-## Safety and honesty rules built in
-* Every line carries `attribution: original_fiction`. Scripture-style claims without a `source`
-  fail QA.
-* Heavy topics get a help-seeking note (Tele-MANAS 14416) in the caption and attribution note.
-* Voice cloning requires a signed `consent.yaml`. Samples never leave `private/`.
-* Paid services (Claude script drafting, ElevenLabs) are off unless explicitly enabled.
-
-See `docs/pipeline.md` for the full CLI, YAML schema, caching and automation status.
+The previous flat vector-puppet pipeline was removed. It is still in git history (commit `5223d67`).
